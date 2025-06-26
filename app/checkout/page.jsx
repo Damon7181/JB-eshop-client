@@ -53,7 +53,7 @@ export default function CheckoutPage() {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <ToastContainer position="top-center" />
-      <h1 className="text-2xl font-bold mb-6">Checkout</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">Checkout</h1>
 
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>

@@ -21,7 +21,7 @@ export default function CartPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 px-6 py-12">
+    <div className=" bg-gray-50 px-6 py-12">
       <h1 className="text-3xl font-bold mb-8 text-center">Your Cart</h1>
 
       {cartItems.length === 0 ? (
