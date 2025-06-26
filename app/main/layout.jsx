@@ -1,6 +1,6 @@
 export default function Layout({ children }) {
   return (
-    <div className="container">
+    <div className="">
       {/* <header>
           <h1>Welcome to the Page Module</h1>
         </header> */}
