@@ -30,7 +30,7 @@ export default function CheckoutPage() {
 
     try {
       const response = await axios.post(
-        "jb-eshop-backend-production.up.railway.app/api/orders",
+        "https://jb-eshop-backend-production.up.railway.app/api/orders",
         {
           customerName: formData.name,
           customerEmail: formData.email,
