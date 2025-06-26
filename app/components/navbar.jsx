@@ -29,7 +29,7 @@ export default function Navbar() {
     <nav className="bg-blue-50 shadow-md py-5 px-6">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4 relative">
         <div className="flex items-center justify-between w-full md:w-auto">
-          <h1 className="text-xl font-bold">
+          <h1 className="text-xl font-bold text-black">
             <span className="text-blue-400 font-serif border-b-3 border-b-blue-800">
               J
             </span>
@@ -84,7 +84,7 @@ export default function Navbar() {
 
         {/* Small screen lower than medium menu */}
         {menuOpen && (
-          <ul className="md:hidden flex flex-col space-y-3 bg-white shadow-lg rounded-lg p-4 absolute top-16 left-0 right-0 z-40">
+          <ul className="md:hidden flex flex-col space-y-3 bg-white shadow-lg rounded-lg p-4 absolute top-16 left-0 right-0 z-40 text-black">
             <li>
               <Link href="/main" onClick={() => setMenuOpen(false)}>
                 Home
@@ -125,7 +125,7 @@ export default function Navbar() {
         )}
 
         {showCart && (
-          <div className="absolute top-20 right-0 md:top-16 md:right-6 w-full max-w-xs md:w-120 bg-white border rounded-lg shadow-lg z-50 p-4">
+          <div className="absolute top-20 right-0 md:top-16 md:right-6 w-full max-w-xs md:w-120 bg-white border rounded-lg shadow-lg z-50 p-4 text-black">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-bold">Cart</h2>
               <button onClick={() => setShowCart(false)}>

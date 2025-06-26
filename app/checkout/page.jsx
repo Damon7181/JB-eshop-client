@@ -51,7 +51,7 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-6 text-black">
       <ToastContainer position="top-center" />
       <h1 className="text-2xl font-bold mb-6 text-center">Checkout</h1>
 

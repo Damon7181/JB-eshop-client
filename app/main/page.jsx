@@ -5,7 +5,7 @@ import Link from "next/link";
 const categories = [
   {
     name: "Saunas",
-    img: "https://www.shutterstock.com/image-photo/large-galvanized-tub-filled-ice-600nw-2514072593.jpg",
+    img: "https://www.eschgfeller.eu/thumbnail/1d/a7/10/1714500126/c90cded4f6f14c3aa3a34450f6f78028_1920x1920.webp",
   },
   // {
   //   name: 'Smart Rings',
@@ -33,7 +33,7 @@ export default function UserPortalPage() {
           <div key={item.name} className="flex flex-col items-center">
             <Link
               href="/Sauna"
-              className="bg-blue-100 rounded-3xl w-36 h-36 flex items-center justify-center shadow-md shadow-all1"
+              className="bg-blue-100 rounded-3xl w-28 h-32 flex items-center justify-center shadow-md shadow-all1"
             >
               <div className="relative bg-blue-100 rounded-3xl w-36 h-36 flex items-center justify-center shadow-md">
                 <Image
@@ -41,7 +41,7 @@ export default function UserPortalPage() {
                   alt={item.name}
                   width={100}
                   height={80}
-                  className="object-contain rounded-full"
+                  className="object-contain rounded-4xl w-32 h-32 "
                 />
               </div>
             </Link>
