@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function CheckoutPage() {
   const cartItems = useSelector((state) => state.cart.items);
@@ -24,7 +26,7 @@ export default function CheckoutPage() {
 
   const handleOrder = async () => {
     if (!formData.name || !formData.email || !formData.address) {
-      alert("Please fill in all the fields.");
+      toast.error("Please fill in all the fields.");
       return;
     }
 
@@ -39,16 +41,18 @@ export default function CheckoutPage() {
           totalAmount: total,
         }
       );
-      console.log("Order saved:", response.data);
-      alert("Order placed successfully!");
+      toast.success("Order placed successfully!", {
+        duration: 100,
+      });
     } catch (err) {
       console.error("Failed to save order:", err);
-      alert("Something went wrong while saving the order.");
+      toast.error("Something went wrong while saving the order.");
     }
   };
 
   return (
     <div className="max-w-4xl mx-auto p-6">
+      <ToastContainer position="top-center" />
       <h1 className="text-2xl font-bold mb-6">Checkout</h1>
 
       {cartItems.length === 0 ? (

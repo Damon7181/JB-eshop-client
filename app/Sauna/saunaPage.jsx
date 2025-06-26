@@ -5,13 +5,14 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/cartSlice";
 import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SaunaPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,6 +28,31 @@ export default function SaunaPage() {
         setLoading(false);
       });
   }, []);
+
+  const handleAddToCart = (product) => {
+    dispatch(
+      addToCart({
+        id: product._id,
+        title: product.name,
+        price: parseFloat(product.price),
+        image: product.image,
+      })
+    );
+    toast.success(`${product.name} added to cart!`);
+  };
+
+  const handleBuyNow = (product) => {
+    dispatch(
+      addToCart({
+        id: product._id,
+        title: product.name,
+        price: parseFloat(product.price),
+        image: product.image,
+      })
+    );
+    toast.success(`${product.name} added to cart! Redirecting to checkout...`);
+    setTimeout(() => router.push("/checkout"), 300);
+  };
 
   if (loading)
     return (
@@ -44,6 +70,7 @@ export default function SaunaPage() {
 
   return (
     <div className="container px-5 w-full my-24 mx-auto">
+      <ToastContainer />
       <div className="px-5 mx-auto max-w-screen-xl">
         <h1 className="text-3xl font-bold mb-4 mt-5 text-zinc-950 text-center">
           Saunas
@@ -68,43 +95,25 @@ export default function SaunaPage() {
                   {product.name}
                 </h2>
                 <div className="leading-snug space-y-0 mb-2">
-                  <p className=" text-base text-center text-gray-700">
+                  <p className="text-base text-center text-gray-700">
                     {product.price}
                   </p>
-                  <p className=" text-grey line-through text-gray-400 ">
+                  <p className="text-grey line-through text-gray-400">
                     {product.originalPrice}
                   </p>
                 </div>
 
                 <div className="flex gap-2 w-full justify-center mt-2">
                   <button
-                    onClick={() =>
-                      dispatch(
-                        addToCart({
-                          id: product._id,
-                          title: product.name,
-                          price: parseFloat(product.price),
-                          image: product.image,
-                        })
-                      )
-                    }
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-xl transition w-full sm:w-auto shadow group-hover:scale-105"
+                    onClick={() => handleAddToCart(product)}
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm md:text-base whitespace-nowrap py-2 px-4 rounded-xl transition w-full sm:w-auto shadow group-hover:scale-105"
                   >
                     Add to Cart
                   </button>
+
                   <button
-                    onClick={() => {
-                      dispatch(
-                        addToCart({
-                          id: product._id,
-                          title: product.name,
-                          price: parseFloat(product.price),
-                          image: product.image,
-                        })
-                      );
-                      router.push("/checkout");
-                    }}
-                    className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-xl transition w-full sm:w-auto shadow group-hover:scale-105"
+                    onClick={() => handleBuyNow(product)}
+                    className="bg-green-600 hover:bg-green-700 text-white font-semibold text-sm md:text-base whitespace-nowrap py-2 px-4 rounded-xl transition w-full sm:w-auto shadow group-hover:scale-105"
                   >
                     Buy Now
                   </button>
@@ -114,6 +123,7 @@ export default function SaunaPage() {
           ))}
         </div>
       </div>
+
       {/* Animation keyframes for fadeInUp */}
       <style jsx>{`
         @keyframes fadeInUp {
