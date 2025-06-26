@@ -1,8 +1,7 @@
 // app/layout.js
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ClientReduxProvider from "./ClientReduxProvider"; 
-
+import ClientReduxProvider from "./ClientReduxProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,9 +22,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
-        <ClientReduxProvider>{children}</ClientReduxProvider>
+        <ClientReduxProvider>
+          <div className="bg-white">{children}</div>
+        </ClientReduxProvider>
       </body>
     </html>
   );

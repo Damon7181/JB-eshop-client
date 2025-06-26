@@ -126,12 +126,13 @@ export default function CheckoutPage() {
 
           {/* Buttons */}
           <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-between">
-            <button
+            <Link
+              href="/Sauna"
               onClick={handleOrder}
               className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 w-full sm:w-auto"
             >
               Confirm & Place Order
-            </button>
+            </Link>
             <Link
               href="/Sauna"
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded w-full sm:w-auto text-center"
