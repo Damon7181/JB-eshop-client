@@ -128,7 +128,11 @@ export default function CheckoutPage() {
           <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-between">
             <Link
               href="/Sauna"
-              onClick={handleOrder}
+              onClick={(e) => {
+                e.preventDefault(); // prevent the default <a> behavior
+                handleOrder(); // call your function
+                window.location.href = "/Sauna"; // reload and navigate
+              }}
               className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 w-full sm:w-auto"
             >
               Confirm & Place Order
