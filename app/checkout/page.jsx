@@ -23,6 +23,8 @@ export default function CheckoutPage() {
     address: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -33,9 +35,13 @@ export default function CheckoutPage() {
       return;
     }
 
+    setLoading(true);
     try {
       const response = await axios.post(
-        "https://jb-eshop-backend-production.up.railway.app/api/orders",
+        `${
+          process.env.NEXT_PUBLIC_API_URL ||
+          "https://jb-eshop-backend-production.up.railway.app"
+        }/api/orders`,
         {
           customerName: formData.name,
           customerEmail: formData.email,
@@ -49,13 +55,15 @@ export default function CheckoutPage() {
         toast.success("🎉 Order placed successfully!");
         setTimeout(() => {
           router.push("/Sauna");
-        }, 1500); // wait for toast to show before navigating
+        }, 1500);
       } else {
         toast.error("Something went wrong!");
       }
     } catch (err) {
       console.error("Failed to save order:", err);
       toast.error("Something went wrong while saving the order.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -70,15 +78,15 @@ export default function CheckoutPage() {
         <>
           {/* Order Items */}
           <ul className="space-y-4">
-            {cartItems.map((item, index) => (
+            {cartItems.map((item) => (
               <li
-                key={index}
+                key={item._id || item.id || item.title}
                 className="flex items-center justify-between border-b pb-4"
               >
                 <div className="flex items-center gap-4">
                   <img
                     src={item.image}
-                    alt={item.title}
+                    alt={item.title || "Product Image"}
                     className="w-16 h-16 object-cover rounded"
                   />
                   <div>
@@ -137,16 +145,23 @@ export default function CheckoutPage() {
           <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-between">
             <button
               onClick={handleOrder}
-              className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 w-full sm:w-auto"
+              disabled={loading}
+              className={`px-6 py-3 rounded w-full sm:w-auto text-white ${
+                loading
+                  ? "bg-green-400 cursor-not-allowed"
+                  : "bg-green-600 hover:bg-green-700"
+              }`}
             >
-              Confirm & Place Order
+              {loading ? "Placing Order..." : "Confirm & Place Order"}
             </button>
+
             <Link
               href="/Sauna"
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded w-full sm:w-auto text-center"
             >
               Add More Products
             </Link>
+
             <Link
               href="/cart"
               className="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded w-full sm:w-auto text-center"
