@@ -1,11 +1,12 @@
 "use client";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 
 export default function CheckoutPage() {
   const cartItems = useSelector((state) => state.cart.items);
@@ -13,6 +14,8 @@ export default function CheckoutPage() {
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -41,9 +44,15 @@ export default function CheckoutPage() {
           totalAmount: total,
         }
       );
-      toast.success("Order placed successfully!", {
-        duration: 100,
-      });
+
+      if (response.status === 201) {
+        toast.success("🎉 Order placed successfully!");
+        setTimeout(() => {
+          router.push("/Sauna");
+        }, 1500); // wait for toast to show before navigating
+      } else {
+        toast.error("Something went wrong!");
+      }
     } catch (err) {
       console.error("Failed to save order:", err);
       toast.error("Something went wrong while saving the order.");
@@ -126,17 +135,12 @@ export default function CheckoutPage() {
 
           {/* Buttons */}
           <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-between">
-            <Link
-              href="/Sauna"
-              onClick={(e) => {
-                e.preventDefault(); // prevent the default <a> behavior
-                handleOrder(); // call your function
-                window.location.href = "/Sauna"; // reload and navigate
-              }}
+            <button
+              onClick={handleOrder}
               className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 w-full sm:w-auto"
             >
               Confirm & Place Order
-            </Link>
+            </button>
             <Link
               href="/Sauna"
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded w-full sm:w-auto text-center"
