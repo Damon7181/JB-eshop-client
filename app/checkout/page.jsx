@@ -143,6 +143,18 @@ export default function CheckoutPage() {
 
           {/* Buttons */}
           <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-between">
+            <Link
+              href="/cart"
+              className="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded w-full sm:w-auto text-center"
+            >
+              Back to Cart
+            </Link>
+            <Link
+              href="/Sauna"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded w-full sm:w-auto text-center"
+            >
+              Add More Products
+            </Link>
             <button
               onClick={handleOrder}
               disabled={loading}
@@ -154,20 +166,6 @@ export default function CheckoutPage() {
             >
               {loading ? "Placing Order..." : "Confirm & Place Order"}
             </button>
-
-            <Link
-              href="/Sauna"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded w-full sm:w-auto text-center"
-            >
-              Add More Products
-            </Link>
-
-            <Link
-              href="/cart"
-              className="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded w-full sm:w-auto text-center"
-            >
-              Back to Cart
-            </Link>
           </div>
         </>
       )}
